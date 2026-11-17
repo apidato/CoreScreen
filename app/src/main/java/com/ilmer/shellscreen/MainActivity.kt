@@ -298,7 +298,20 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 val ahora = Date()
                 txtRelojWidget.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(ahora)
-                txtFechaWidget.text = SimpleDateFormat("EEEE, d 'de' MMMM", Locale("es", "ES")).format(ahora).replaceFirstChar { it.uppercase() }
+
+                // Obtener el idioma guardado en SharedPreferences para adaptar la fecha de forma dinámica
+                val prefs = getSharedPreferences("ShellScreenPrefs", Context.MODE_PRIVATE)
+                val idiomaActual = prefs.getString("appIdioma", "sistema") ?: "sistema"
+
+                val localeActual = if (idiomaActual == "sistema") {
+                    Locale.getDefault()
+                } else {
+                    Locale(idiomaActual)
+                }
+
+                val formatoFecha = SimpleDateFormat("EEEE, d 'de' MMMM", localeActual)
+                txtFechaWidget.text = formatoFecha.format(ahora).replaceFirstChar { it.uppercase() }
+
                 handler.postDelayed(this, 1000)
             }
         }
