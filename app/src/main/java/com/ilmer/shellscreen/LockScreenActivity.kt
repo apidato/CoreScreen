@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -21,8 +22,6 @@ class LockScreenActivity : AppCompatActivity() {
     private lateinit var txtNombreDuenio: TextView
     private lateinit var contenedorReloj: FrameLayout
     private lateinit var txtRelojBloqueo: TextView
-    private lateinit var txtFechaBloqueo: TextView
-    private lateinit var txtDesbloquear: TextView
 
     private var analogClockView: MinimalAnalogClockView? = null
 
@@ -51,14 +50,12 @@ class LockScreenActivity : AppCompatActivity() {
         txtNombreDuenio = findViewById(R.id.txtNombreDuenio)
         contenedorReloj = findViewById(R.id.contenedorReloj)
         txtRelojBloqueo = findViewById(R.id.txtRelojBloqueo)
-        txtFechaBloqueo = findViewById(R.id.txtFechaBloqueo)
-        txtDesbloquear = findViewById(R.id.txtDesbloquear)
 
         cargarPreferencias()
         configurarTipoReloj()
         iniciarRelojBloqueo()
 
-        txtDesbloquear.setOnClickListener {
+        rootLockLayout.setOnClickListener {
             finish()
         }
     }
@@ -71,7 +68,7 @@ class LockScreenActivity : AppCompatActivity() {
 
         tipoReloj = prefs.getString("tipoReloj", "digital") ?: "digital"
         mostrarNombre = prefs.getBoolean("mostrarNombre", false)
-        nombreDuenio = prefs.getString("nombreDuenio", "Ilmer") ?: "Ilmer"
+        nombreDuenio = prefs.getString("nombreDuenio", "") ?: ""
 
         val mantenerDespierto = prefs.getBoolean("mantenerDespierto", false)
         if (mantenerDespierto) {
@@ -82,16 +79,29 @@ class LockScreenActivity : AppCompatActivity() {
 
         try {
             rootLockLayout.setBackgroundColor(Color.parseColor(colorFondo))
-            txtFechaBloqueo.setTextColor(Color.parseColor(colorWidget))
-            txtDesbloquear.setTextColor(Color.parseColor(colorTexto))
         } catch (e: Exception) {}
 
-        if (mostrarNombre && nombreDuenio.isNotBlank()) {
-            txtNombreDuenio.text = "Hola $nombreDuenio,"
+        if (mostrarNombre) {
+            actualizarSaludoDinamico()
             try { txtNombreDuenio.setTextColor(Color.parseColor(colorWidget)) } catch (e: Exception) {}
             txtNombreDuenio.visibility = View.VISIBLE
         } else {
             txtNombreDuenio.visibility = View.GONE
+        }
+    }
+
+    private fun actualizarSaludoDinamico() {
+        val horaActual = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val saludoBase = when (horaActual) {
+            in 6..11 -> getString(R.string.saludo_manana)
+            in 12..18 -> getString(R.string.saludo_tarde)
+            else -> getString(R.string.saludo_noche)
+        }
+
+        if (nombreDuenio.isNotBlank()) {
+            txtNombreDuenio.text = "$saludoBase $nombreDuenio,"
+        } else {
+            txtNombreDuenio.text = "$saludoBase,"
         }
     }
 
@@ -124,9 +134,9 @@ class LockScreenActivity : AppCompatActivity() {
                     txtRelojBloqueo.text = formatoHora.format(ahora)
                 }
 
-                val formatoDia = SimpleDateFormat("EEEE, d 'de' MMMM", Locale("es", "ES"))
-                val diaStr = formatoDia.format(ahora).lowercase(Locale("es", "ES"))
-                txtFechaBloqueo.text = "hoy es $diaStr"
+                if (mostrarNombre) {
+                    actualizarSaludoDinamico()
+                }
 
                 handler.postDelayed(this, 1000)
             }

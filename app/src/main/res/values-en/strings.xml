@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CoreScreen</string>
+    <string name="hint_buscar">Search app...</string>
+    <string name="msg_sin_favoritos">No favorite apps (Configure in settings)</string>
+    <string name="msg_config_apps">Configure visible apps in Settings</string>
+    <string name="msg_sin_coincidencia">No applications match</string>
+    <string name="msg_error_abrir">Error opening application</string>
+    <string name="config_titulo">Settings</string>
+
+    <!-- LockScreen Texts -->
+    <string name="saludo_manana">Good morning</string>
+    <string name="saludo_tarde">Good afternoon</string>
+    <string name="saludo_noche">Good evening</string>
+    <string name="default_reloj_bloqueo">00:00:00</string>
+
+    <!-- ConfigActivity Texts -->
+    <string name="cfg_volver">[ Back ]</string>
+    <string name="cfg_titulo">Settings</string>
+    <string name="cfg_paleta_colores">Color Palette</string>
+    <string name="cfg_colores_rapidos">Quick colors:</string>
+    <string name="cfg_fondo_hex">Background (Hex):</string>
+    <string name="cfg_texto_hex">Text / Accent (Hex):</string>
+    <string name="cfg_widget_hex">Widget (Hex):</string>
+    <string name="cfg_apps_favoritas">Favorite apps (Max 3)</string>
+    <string name="cfg_apps_visibles">Visible apps on screen</string>
+    <string name="cfg_buscar_todas">Search and list all phone apps</string>
+    <string name="cfg_fuentes_titulo">Font size and style</string>
+    <string name="cfg_tamano_fuente_label">List text size (10 to 24 sp):</string>
+    <string name="cfg_tamano_hint">Ex: 14</string>
+    <string name="cfg_tipo_letra">Font family:</string>
+    <string name="cfg_letra_mono">Mono</string>
+    <string name="cfg_letra_sans">Sans</string>
+    <string name="cfg_letra_serif">Serif</string>
+    <string name="cfg_bloqueo_titulo">Lock Screen</string>
+    <string name="cfg_tipo_reloj">Clock type:</string>
+    <string name="cfg_reloj_digital">Digital</string>
+    <string name="cfg_reloj_analogico">Analog (Hands)</string>
+    <string name="cfg_mostrar_nombre">Show owner name</string>
+    <string name="cfg_nombre_hint">Owner name</string>
+    <string name="cfg_mantener_despierto">Keep screen awake (No sleep)</string>
+    <string name="cfg_btn_launcher">Set as default launcher</string>
+    <string name="cfg_btn_aplicar">Apply changes</string>
+    <string name="cfg_toast_max_favoritas">Only 3 favorites allowed</string>
+    <string name="cfg_toast_error_color">Error: Invalid HTML colors</string>
+    <string name="cfg_toast_aplicado">Configuration applied!</string>
+
+    <!-- Language Selector Texts -->
+    <string name="cfg_idioma_titulo">App Language</string>
+    <string name="cfg_idioma_sistema">System Default</string>
+    <string name="cfg_idioma_es">Spanish (Español)</string>
+    <string name="cfg_idioma_en">English</string>
+    <string name="cfg_idioma_pt">Portuguese (Português)</string>
+    <string name="cfg_idioma_de">German (Deutsch)</string>
+    <string name="cfg_idioma_fr">French (Français)</string>
+
+</resources>

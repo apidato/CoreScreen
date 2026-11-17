@@ -13,6 +13,8 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -30,6 +32,14 @@ class ConfigActivity : AppCompatActivity() {
     private lateinit var checkMostrarNombre: CheckBox
     private lateinit var inputNombreDuenio: EditText
     private lateinit var checkMantenerDespierto: CheckBox
+
+    // Vistas para el selector de idioma
+    private lateinit var radioIdiomaSistema: RadioButton
+    private lateinit var radioIdiomaEs: RadioButton
+    private lateinit var radioIdiomaEn: RadioButton
+    private lateinit var radioIdiomaPt: RadioButton
+    private lateinit var radioIdiomaDe: RadioButton
+    private lateinit var radioIdiomaFr: RadioButton
 
     private lateinit var checkBuscarEnTodas: CheckBox
     private lateinit var contenedorFavoritas: LinearLayout
@@ -72,6 +82,14 @@ class ConfigActivity : AppCompatActivity() {
         inputNombreDuenio = findViewById(R.id.inputNombreDuenio)
         checkMantenerDespierto = findViewById(R.id.checkMantenerDespierto)
 
+        // Vincular RadioButtons de Idioma
+        radioIdiomaSistema = findViewById(R.id.radioIdiomaSistema)
+        radioIdiomaEs = findViewById(R.id.radioIdiomaEs)
+        radioIdiomaEn = findViewById(R.id.radioIdiomaEn)
+        radioIdiomaPt = findViewById(R.id.radioIdiomaPt)
+        radioIdiomaDe = findViewById(R.id.radioIdiomaDe)
+        radioIdiomaFr = findViewById(R.id.radioIdiomaFr)
+
         checkBuscarEnTodas = findViewById(R.id.checkBuscarEnTodas)
         contenedorFavoritas = findViewById(R.id.contenedorFavoritas)
         contenedorAppsPantalla = findViewById(R.id.contenedorAppsPantalla)
@@ -83,7 +101,8 @@ class ConfigActivity : AppCompatActivity() {
             Pair(findViewById<TextView>(R.id.headerFavoritas), findViewById<LinearLayout>(R.id.contentFavoritas)),
             Pair(findViewById<TextView>(R.id.headerVisibles), findViewById<LinearLayout>(R.id.contentVisibles)),
             Pair(findViewById<TextView>(R.id.headerFuentes), findViewById<LinearLayout>(R.id.contentFuentes)),
-            Pair(findViewById<TextView>(R.id.headerBloqueo), findViewById<LinearLayout>(R.id.contentBloqueo))
+            Pair(findViewById<TextView>(R.id.headerBloqueo), findViewById<LinearLayout>(R.id.contentBloqueo)),
+            Pair(findViewById<TextView>(R.id.headerIdioma), findViewById<LinearLayout>(R.id.contentIdioma))
         )
 
         for ((header, content) in secciones) {
@@ -139,6 +158,16 @@ class ConfigActivity : AppCompatActivity() {
         inputNombreDuenio.setText(prefs.getString("nombreDuenio", ""))
         checkMantenerDespierto.isChecked = prefs.getBoolean("mantenerDespierto", false)
 
+        // Cargar selección de idioma guardada
+        when (prefs.getString("appIdioma", "sistema")) {
+            "es" -> radioIdiomaEs.isChecked = true
+            "en" -> radioIdiomaEn.isChecked = true
+            "pt" -> radioIdiomaPt.isChecked = true
+            "de" -> radioIdiomaDe.isChecked = true
+            "fr" -> radioIdiomaFr.isChecked = true
+            else -> radioIdiomaSistema.isChecked = true
+        }
+
         checkBuscarEnTodas.isChecked = prefs.getBoolean("buscarEnTodas", false)
 
         val favoritasGuardadas = prefs.getStringSet("appsFavoritas", setOf()) ?: setOf()
@@ -149,7 +178,7 @@ class ConfigActivity : AppCompatActivity() {
             cbFav.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked && checksFavoritas.count { it.isChecked } > 3) {
                     cbFav.isChecked = false
-                    Toast.makeText(this@ConfigActivity, "Solo 3 favoritas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ConfigActivity, getString(R.string.cfg_toast_max_favoritas), Toast.LENGTH_SHORT).show()
                 }
             }
             contenedorFavoritas.addView(cbFav)
@@ -167,7 +196,7 @@ class ConfigActivity : AppCompatActivity() {
         val cWidget = inputColorWidget.text.toString().uppercase()
 
         if (!validarColor(cFondo) || !validarColor(cTexto) || !validarColor(cWidget)) {
-            Toast.makeText(this, "Error: Colores HTML inválidos", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.cfg_toast_error_color), Toast.LENGTH_LONG).show()
             return
         }
 
@@ -191,6 +220,23 @@ class ConfigActivity : AppCompatActivity() {
         prefs.putString("nombreDuenio", inputNombreDuenio.text.toString())
         prefs.putBoolean("mantenerDespierto", checkMantenerDespierto.isChecked)
 
+        // Guardar y aplicar el idioma seleccionado
+        val codigoIdioma = when {
+            radioIdiomaEs.isChecked -> "es"
+            radioIdiomaEn.isChecked -> "en"
+            radioIdiomaPt.isChecked -> "pt"
+            radioIdiomaDe.isChecked -> "de"
+            radioIdiomaFr.isChecked -> "fr"
+            else -> "sistema"
+        }
+        prefs.putString("appIdioma", codigoIdioma)
+
+        if (codigoIdioma == "sistema") {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+        } else {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(codigoIdioma))
+        }
+
         prefs.putBoolean("buscarEnTodas", checkBuscarEnTodas.isChecked)
 
         val favs = checksFavoritas.filter { it.isChecked }.map { it.text.toString() }.toSet()
@@ -200,7 +246,7 @@ class ConfigActivity : AppCompatActivity() {
         prefs.putStringSet("appsPantalla", pantalla)
 
         prefs.apply()
-        Toast.makeText(this, "¡Configuración aplicada!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.cfg_toast_aplicado), Toast.LENGTH_SHORT).show()
         finish()
     }
 

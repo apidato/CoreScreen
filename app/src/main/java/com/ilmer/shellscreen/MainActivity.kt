@@ -1,6 +1,5 @@
 package com.ilmer.shellscreen
 
-import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,13 +8,11 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.telephony.TelephonyManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -25,7 +22,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -33,25 +29,21 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
 
     private lateinit var rootLayout: LinearLayout
-    private lateinit var txtSenal: TextView
+    private lateinit var btnIconConfig: TextView
     private lateinit var txtDispositivo: TextView
     private lateinit var txtBateria: TextView
     private lateinit var txtRelojWidget: TextView
     private lateinit var txtFechaWidget: TextView
     private lateinit var layoutFavoritos: LinearLayout
     private lateinit var layoutListaApps: LinearLayout
-    private lateinit var txtFooterLeft: TextView
-    private lateinit var btnConfig: TextView
     private lateinit var inputTerminal: EditText
 
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var runnableReloj: Runnable
-    private lateinit var runnableSenal: Runnable
     private var screenReceiver: BroadcastReceiver? = null
 
     private var textoIngresado = ""
     private var modeloLimpio = ""
-    private val CODIGO_PERMISO_SENAL = 101
 
     private var colorFondo = "#000000"
     private var colorTexto = "#00FF00"
@@ -82,15 +74,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rootLayout = findViewById(R.id.rootLayout)
-        txtSenal = findViewById(R.id.txtSenal)
+        btnIconConfig = findViewById(R.id.btnIconConfig)
         txtDispositivo = findViewById(R.id.txtDispositivo)
         txtBateria = findViewById(R.id.txtBateria)
         txtRelojWidget = findViewById(R.id.txtRelojWidget)
         txtFechaWidget = findViewById(R.id.txtFechaWidget)
         layoutFavoritos = findViewById(R.id.layoutFavoritos)
         layoutListaApps = findViewById(R.id.layoutListaApps)
-        txtFooterLeft = findViewById(R.id.txtFooterLeft)
-        btnConfig = findViewById(R.id.btnConfig)
         inputTerminal = findViewById(R.id.inputTerminal)
 
         modeloLimpio = Build.MODEL.replace(" ", "")
@@ -98,15 +88,10 @@ class MainActivity : AppCompatActivity() {
 
         cargarAppsInstaladas()
         iniciarRelojEnVivo()
-        solicitarPermisosSenal()
         configurarBuscador()
         registrarEscuchadorPantalla()
 
-        txtFooterLeft.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://apidato.com")))
-        }
-
-        btnConfig.setOnClickListener {
+        btnIconConfig.setOnClickListener {
             startActivity(Intent(this, ConfigActivity::class.java))
         }
     }
@@ -158,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 inputTerminal.setText("")
             } else {
-                Toast.makeText(this, "Error al abrir la aplicación", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.msg_error_abrir), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -187,8 +172,7 @@ class MainActivity : AppCompatActivity() {
     private fun aplicarColoresUI() {
         try {
             rootLayout.setBackgroundColor(Color.parseColor(colorFondo))
-            btnConfig.setTextColor(Color.parseColor(colorTexto))
-            txtSenal.setTextColor(Color.parseColor(colorWidget))
+            btnIconConfig.setTextColor(Color.parseColor(colorWidget))
             txtDispositivo.setTextColor(Color.parseColor(colorWidget))
             txtBateria.setTextColor(Color.parseColor(colorWidget))
             txtRelojWidget.setTextColor(Color.parseColor(colorWidget))
@@ -229,7 +213,7 @@ class MainActivity : AppCompatActivity() {
         layoutFavoritos.removeAllViews()
         if (appsFavoritas.isEmpty()) {
             val tv = TextView(this).apply {
-                text = "Sin apps favoritas (Configurar en ajustes)"
+                text = getString(R.string.msg_sin_favoritos)
                 textSize = 13f
                 setTextColor(Color.parseColor("#666666"))
                 gravity = Gravity.CENTER
@@ -266,7 +250,7 @@ class MainActivity : AppCompatActivity() {
 
         if (listaBase.isEmpty() && !buscarEnTodas) {
             val msg = TextView(this).apply {
-                text = "Configura tus aplicaciones visibles en Ajustes"
+                text = getString(R.string.msg_config_apps)
                 setTextColor(Color.parseColor("#888888"))
                 textSize = 14f
                 setPadding(0, 16, 0, 16)
@@ -274,7 +258,7 @@ class MainActivity : AppCompatActivity() {
             layoutListaApps.addView(msg)
         } else if (filtradas.isEmpty()) {
             val msg = TextView(this).apply {
-                text = "Ninguna aplicación coincide"
+                text = getString(R.string.msg_sin_coincidencia)
                 setTextColor(Color.parseColor("#888888"))
                 textSize = 14f
                 setPadding(0, 16, 0, 16)
@@ -321,43 +305,9 @@ class MainActivity : AppCompatActivity() {
         handler.post(runnableReloj)
     }
 
-    private fun solicitarPermisosSenal() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE), CODIGO_PERMISO_SENAL)
-        } else {
-            iniciarLectorSenal()
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CODIGO_PERMISO_SENAL && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            iniciarLectorSenal()
-        }
-    }
-
-    private fun iniciarLectorSenal() {
-        val tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        runnableSenal = object : Runnable {
-            override fun run() {
-                try {
-                    if (ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        val celdas = tm.allCellInfo
-                        txtSenal.text = if (celdas != null && celdas.isNotEmpty()) "||||||  ||||||" else "||||||"
-                    }
-                } catch (e: Exception) {
-                    txtSenal.text = "||||||"
-                }
-                handler.postDelayed(this, 10000)
-            }
-        }
-        handler.post(runnableSenal)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnableReloj)
-        if (::runnableSenal.isInitialized) handler.removeCallbacks(runnableSenal)
         screenReceiver?.let {
             try { unregisterReceiver(it) } catch (e: Exception) {}
         }

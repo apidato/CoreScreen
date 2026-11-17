@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CoreScreen</string>
+    <string name="hint_buscar">Pesquisar aplicativo...</string>
+    <string name="msg_sin_favoritos">Sem favoritos (Configurar nas definições)</string>
+    <string name="msg_config_apps">Configure os aplicativos visíveis nas Configurações</string>
+    <string name="msg_sin_coincidencia">Nenhum aplicativo encontrado</string>
+    <string name="msg_error_abrir">Erro ao abrir o aplicativo</string>
+    <string name="config_titulo">Configurações</string>
+
+    <!-- Textos de Pantalla de Bloqueo -->
+    <string name="saludo_manana">Bom dia</string>
+    <string name="saludo_tarde">Boa tarde</string>
+    <string name="saludo_noche">Boa noite</string>
+    <string name="default_reloj_bloqueo">00:00:00</string>
+
+    <!-- Textos de ConfigActivity -->
+    <string name="cfg_volver">[ Voltar ]</string>
+    <string name="cfg_titulo">Configurações</string>
+    <string name="cfg_paleta_colores">Paleta de cores</string>
+    <string name="cfg_colores_rapidos">Cores rápidas:</string>
+    <string name="cfg_fondo_hex">Fundo (Hex):</string>
+    <string name="cfg_texto_hex">Texto / Destaque (Hex):</string>
+    <string name="cfg_widget_hex">Widget (Hex):</string>
+    <string name="cfg_apps_favoritas">Apps favoritos (Máx 3)</string>
+    <string name="cfg_apps_visibles">Apps visíveis na tela</string>
+    <string name="cfg_buscar_todas">Pesquisar e listar todos os apps do telefone</string>
+    <string name="cfg_fuentes_titulo">Tamanho e tipo de fonte</string>
+    <string name="cfg_tamano_fuente_label">Tamanho da lista (10 a 24 sp):</string>
+    <string name="cfg_tamano_hint">Ex: 14</string>
+    <string name="cfg_tipo_letra">Família da fonte:</string>
+    <string name="cfg_letra_mono">Mono</string>
+    <string name="cfg_letra_sans">Sans</string>
+    <string name="cfg_letra_serif">Serif</string>
+    <string name="cfg_bloqueo_titulo">Tela de bloqueio</string>
+    <string name="cfg_tipo_reloj">Tipo de relógio:</string>
+    <string name="cfg_reloj_digital">Digital</string>
+    <string name="cfg_reloj_analogico">Ponteiros</string>
+    <string name="cfg_mostrar_nombre">Mostrar nome do proprietário</string>
+    <string name="cfg_nombre_hint">Nome do proprietário</string>
+    <string name="cfg_mantener_despierto">Manter tela acesa (Não dormir)</string>
+    <string name="cfg_btn_launcher">Definir como launcher padrão</string>
+    <string name="cfg_btn_aplicar">Aplicar alterações</string>
+    <string name="cfg_toast_max_favoritas">Apenas 3 favoritos permitidos</string>
+    <string name="cfg_toast_error_color">Erro: Cores HTML inválidas</string>
+    <string name="cfg_toast_aplicado">Configuração aplicada!</string>
+
+    <!-- Textos del Selector de Idioma en Config -->
+    <string name="cfg_idioma_titulo">Idioma do aplicativo</string>
+    <string name="cfg_idioma_sistema">Padrão do sistema</string>
+    <string name="cfg_idioma_es">Espanhol (Español)</string>
+    <string name="cfg_idioma_en">Inglês (English)</string>
+    <string name="cfg_idioma_pt">Português</string>
+    <string name="cfg_idioma_de">Alemão (Deutsch)</string>
+    <string name="cfg_idioma_fr">Francês (Français)</string>
+</resources>

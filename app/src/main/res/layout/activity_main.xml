@@ -10,7 +10,7 @@
     android:paddingBottom="20dp"
     android:paddingTop="12dp">
 
-    <!-- BARRA SUPERIOR -->
+    <!-- BARRA SUPERIOR (Icono de Ajustes y Batería) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,8 +18,28 @@
         android:gravity="center_vertical"
         android:layout_marginBottom="16dp">
 
-        <TextView android:id="@+id/txtSenal" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="||||||" android:textColor="#FFFFFF" android:textSize="14sp" android:fontFamily="monospace" android:gravity="start" />
-        <TextView android:id="@+id/txtBateria" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.8" android:text="100%" android:textColor="#FFFFFF" android:textSize="14sp" android:fontFamily="sans-serif" android:gravity="end" />
+        <TextView
+            android:id="@+id/btnIconConfig"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⚙"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:gravity="start"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/txtBateria"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="100%"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:gravity="end" />
     </LinearLayout>
 
     <!-- NOMBRE DEL DISPOSITIVO -->
@@ -71,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:hint="Buscar aplicación..."
+            android:hint="@string/hint_buscar"
             android:textColorHint="#555555"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
@@ -85,8 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true"
-        android:layout_marginBottom="12dp">
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/layoutListaApps"
@@ -95,16 +114,5 @@
             android:orientation="vertical">
         </LinearLayout>
     </ScrollView>
-
-    <!-- FOOTER INFERIOR -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp">
-
-        <TextView android:id="@+id/txtFooterLeft" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="apidato.com" android:textColor="#666666" android:textSize="12sp" android:fontFamily="sans-serif" android:gravity="start" android:clickable="true" android:focusable="true"/>
-        <TextView android:id="@+id/btnConfig" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Configuración" android:textColor="#00FF00" android:textSize="12sp" android:fontFamily="sans-serif-medium" android:gravity="end" android:clickable="true" android:focusable="true" />
-    </LinearLayout>
 
 </LinearLayout>

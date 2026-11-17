@@ -14,8 +14,8 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical">
 
-        <TextView android:id="@+id/btnRegresarTop" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="[ Volver ]" android:textColor="#888888" android:fontFamily="sans-serif-medium" android:clickable="true" android:focusable="true" android:padding="8dp"/>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Configuración" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:gravity="end" android:padding="8dp"/>
+        <TextView android:id="@+id/btnRegresarTop" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_volver" android:textColor="#888888" android:fontFamily="sans-serif-medium" android:clickable="true" android:focusable="true" android:padding="8dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_titulo" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:gravity="end" android:padding="8dp"/>
     </LinearLayout>
 
     <ScrollView
@@ -31,9 +31,9 @@
             android:paddingBottom="36dp">
 
             <!-- ACORDEÓN 1: COLORES -->
-            <TextView android:id="@+id/headerColores" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Paleta de colores" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
+            <TextView android:id="@+id/headerColores" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_paleta_colores" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
             <LinearLayout android:id="@+id/contentColores" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:padding="12dp" android:background="@drawable/burbuja_app" android:layout_marginBottom="12dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Colores rápidos:" android:textColor="#888888" android:fontFamily="sans-serif" android:textSize="12sp" android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_colores_rapidos" android:textColor="#888888" android:fontFamily="sans-serif" android:textSize="12sp" android:layout_marginBottom="8dp"/>
                 <LinearLayout android:layout_width="match_parent" android:layout_height="40dp" android:orientation="horizontal" android:layout_marginBottom="16dp" android:weightSum="5">
                     <View android:id="@+id/cVerde" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:background="#00FF00" android:layout_marginEnd="4dp" android:clickable="true"/>
                     <View android:id="@+id/cAmarillo" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:background="#FFFF00" android:layout_marginEnd="4dp" android:clickable="true"/>
@@ -42,40 +42,40 @@
                     <View android:id="@+id/cBlanco" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:background="#FFFFFF" android:clickable="true"/>
                 </LinearLayout>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fondo (Hex):" android:textColor="#AAAAAA" android:fontFamily="sans-serif" android:textSize="12sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_fondo_hex" android:textColor="#AAAAAA" android:fontFamily="sans-serif" android:textSize="12sp"/>
                 <EditText android:id="@+id/inputColorFondo" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/burbuja_app" android:textColor="#FFFFFF" android:fontFamily="sans-serif" android:paddingHorizontal="12dp" android:singleLine="true" android:layout_marginBottom="12dp"/>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Texto / Acento (Hex):" android:textColor="#AAAAAA" android:fontFamily="sans-serif" android:textSize="12sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_texto_hex" android:textColor="#AAAAAA" android:fontFamily="sans-serif" android:textSize="12sp"/>
                 <EditText android:id="@+id/inputColorTexto" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/burbuja_app" android:textColor="#FFFFFF" android:fontFamily="sans-serif" android:paddingHorizontal="12dp" android:singleLine="true" android:layout_marginBottom="12dp"/>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Widget (Hex):" android:textColor="#AAAAAA" android:fontFamily="sans-serif" android:textSize="12sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_widget_hex" android:textColor="#AAAAAA" android:fontFamily="sans-serif" android:textSize="12sp"/>
                 <EditText android:id="@+id/inputColorWidget" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/burbuja_app" android:textColor="#FFFFFF" android:fontFamily="sans-serif" android:paddingHorizontal="12dp" android:singleLine="true"/>
             </LinearLayout>
 
             <!-- ACORDEÓN 2: FAVORITAS -->
-            <TextView android:id="@+id/headerFavoritas" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Apps favoritas (Máx 3)" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
+            <TextView android:id="@+id/headerFavoritas" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_apps_favoritas" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
             <LinearLayout android:id="@+id/contentFavoritas" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:padding="12dp" android:background="@drawable/burbuja_app" android:layout_marginBottom="12dp">
                 <LinearLayout android:id="@+id/contenedorFavoritas" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
             </LinearLayout>
 
             <!-- ACORDEÓN 3: VISIBILIDAD -->
-            <TextView android:id="@+id/headerVisibles" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Apps visibles en pantalla" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
+            <TextView android:id="@+id/headerVisibles" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_apps_visibles" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
             <LinearLayout android:id="@+id/contentVisibles" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:padding="12dp" android:background="@drawable/burbuja_app" android:layout_marginBottom="12dp">
-                <CheckBox android:id="@+id/checkBuscarEnTodas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Buscar y listar todo el teléfono" android:textColor="#FFFF00" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginBottom="16dp"/>
+                <CheckBox android:id="@+id/checkBuscarEnTodas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_buscar_todas" android:textColor="#FFFF00" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginBottom="16dp"/>
                 <LinearLayout android:id="@+id/contenedorAppsPantalla" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
             </LinearLayout>
 
             <!-- ACORDEÓN 4: FUENTES -->
-            <TextView android:id="@+id/headerFuentes" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tamaño y tipo de fuente" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
+            <TextView android:id="@+id/headerFuentes" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_fuentes_titulo" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
             <LinearLayout android:id="@+id/contentFuentes" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:padding="12dp" android:background="@drawable/burbuja_app" android:layout_marginBottom="12dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tamaño de listas (10 a 24 sp):" android:textColor="#888888" android:fontFamily="sans-serif" android:layout_marginBottom="6dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_tamano_fuente_label" android:textColor="#888888" android:fontFamily="sans-serif" android:layout_marginBottom="6dp"/>
 
                 <EditText
                     android:id="@+id/inputTamanoFuente"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:background="@drawable/burbuja_app"
-                    android:hint="Ej: 14"
+                    android:hint="@string/cfg_tamano_hint"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#555555"
                     android:fontFamily="sans-serif"
@@ -84,28 +84,41 @@
                     android:singleLine="true"
                     android:layout_marginBottom="16dp"/>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tipo de letra:" android:textColor="#888888" android:fontFamily="sans-serif" android:layout_marginBottom="6dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_tipo_letra" android:textColor="#888888" android:fontFamily="sans-serif" android:layout_marginBottom="6dp"/>
                 <RadioGroup android:id="@+id/grupoFuente" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                    <RadioButton android:id="@+id/radioMono" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mono" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="monospace" android:layout_marginEnd="12dp"/>
-                    <RadioButton android:id="@+id/radioSans" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sans" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginEnd="12dp"/>
-                    <RadioButton android:id="@+id/radioSerif" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Serif" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="serif"/>
+                    <RadioButton android:id="@+id/radioMono" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_letra_mono" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="monospace" android:layout_marginEnd="12dp"/>
+                    <RadioButton android:id="@+id/radioSans" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_letra_sans" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginEnd="12dp"/>
+                    <RadioButton android:id="@+id/radioSerif" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_letra_serif" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="serif"/>
                 </RadioGroup>
             </LinearLayout>
 
             <!-- ACORDEÓN 5: PANTALLA DE BLOQUEO -->
-            <TextView android:id="@+id/headerBloqueo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Pantalla de bloqueo" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
+            <TextView android:id="@+id/headerBloqueo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_bloqueo_titulo" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
             <LinearLayout android:id="@+id/contentBloqueo" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:padding="12dp" android:background="@drawable/burbuja_app" android:layout_marginBottom="12dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tipo de reloj:" android:textColor="#888888" android:fontFamily="sans-serif" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_tipo_reloj" android:textColor="#888888" android:fontFamily="sans-serif" android:layout_marginBottom="4dp"/>
                 <RadioGroup android:id="@+id/grupoTipoReloj" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp">
-                    <RadioButton android:id="@+id/radioRelojDigital" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Digital" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginEnd="16dp"/>
-                    <RadioButton android:id="@+id/radioRelojAnalogico" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Manecillas" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif"/>
+                    <RadioButton android:id="@+id/radioRelojDigital" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_reloj_digital" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginEnd="16dp"/>
+                    <RadioButton android:id="@+id/radioRelojAnalogico" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_reloj_analogico" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif"/>
                 </RadioGroup>
 
-                <CheckBox android:id="@+id/checkMostrarNombre" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mostrar nombre del dueño" android:textColor="#FFFF00" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginBottom="8dp"/>
+                <CheckBox android:id="@+id/checkMostrarNombre" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_mostrar_nombre" android:textColor="#FFFF00" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:layout_marginBottom="8dp"/>
 
-                <EditText android:id="@+id/inputNombreDuenio" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/burbuja_app" android:hint="Nombre del propietario" android:textColor="#FFFFFF" android:textColorHint="#555555" android:fontFamily="sans-serif" android:paddingHorizontal="12dp" android:singleLine="true" android:layout_marginBottom="12dp"/>
+                <EditText android:id="@+id/inputNombreDuenio" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/burbuja_app" android:hint="@string/cfg_nombre_hint" android:textColor="#FFFFFF" android:textColorHint="#555555" android:fontFamily="sans-serif" android:paddingHorizontal="12dp" android:singleLine="true" android:layout_marginBottom="12dp"/>
 
-                <CheckBox android:id="@+id/checkMantenerDespierto" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Evitar que la pantalla se apague (No dormir)" android:textColor="#FFFF00" android:buttonTint="#00FF00" android:fontFamily="sans-serif"/>
+                <CheckBox android:id="@+id/checkMantenerDespierto" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cfg_mantener_despierto" android:textColor="#FFFF00" android:buttonTint="#00FF00" android:fontFamily="sans-serif"/>
+            </LinearLayout>
+
+            <!-- ACORDEÓN 6: IDIOMA -->
+            <TextView android:id="@+id/headerIdioma" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_titulo" android:textColor="#FFFFFF" android:fontFamily="sans-serif-medium" android:background="@drawable/burbuja_app" android:padding="14dp" android:clickable="true" android:focusable="true" android:layout_marginBottom="8dp"/>
+            <LinearLayout android:id="@+id/contentIdioma" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:padding="12dp" android:background="@drawable/burbuja_app" android:layout_marginBottom="12dp">
+                <RadioGroup android:id="@+id/grupoIdioma" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                    <RadioButton android:id="@+id/radioIdiomaSistema" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_sistema" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:paddingVertical="4dp"/>
+                    <RadioButton android:id="@+id/radioIdiomaEs" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_es" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:paddingVertical="4dp"/>
+                    <RadioButton android:id="@+id/radioIdiomaEn" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_en" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:paddingVertical="4dp"/>
+                    <RadioButton android:id="@+id/radioIdiomaPt" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_pt" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:paddingVertical="4dp"/>
+                    <RadioButton android:id="@+id/radioIdiomaDe" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_de" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:paddingVertical="4dp"/>
+                    <RadioButton android:id="@+id/radioIdiomaFr" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cfg_idioma_fr" android:textColor="#FFFFFF" android:buttonTint="#00FF00" android:fontFamily="sans-serif" android:paddingVertical="4dp"/>
+                </RadioGroup>
             </LinearLayout>
 
             <!-- LAUNCHER POR DEFECTO -->
@@ -113,7 +126,7 @@
                 android:id="@+id/btnSeleccionarLauncher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Establecer como launcher por defecto"
+                android:text="@string/cfg_btn_launcher"
                 android:textColor="#FFFFFF"
                 android:fontFamily="sans-serif-medium"
                 android:background="@drawable/burbuja_app"
@@ -127,6 +140,6 @@
     </ScrollView>
 
     <!-- BOTÓN APLICAR -->
-    <TextView android:id="@+id/btnGuardar" android:layout_width="match_parent" android:layout_height="50dp" android:text="Aplicar cambios" android:background="@drawable/burbuja_app" android:textColor="#00FF00" android:fontFamily="sans-serif-medium" android:textSize="15sp" android:gravity="center" android:clickable="true" android:focusable="true" android:layout_marginTop="8dp"/>
+    <TextView android:id="@+id/btnGuardar" android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/cfg_btn_aplicar" android:background="@drawable/burbuja_app" android:textColor="#00FF00" android:fontFamily="sans-serif-medium" android:textSize="15sp" android:gravity="center" android:clickable="true" android:focusable="true" android:layout_marginTop="8dp"/>
 
 </LinearLayout>
