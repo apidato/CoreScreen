@@ -176,6 +176,22 @@ class MainActivity : AppCompatActivity() {
             txtDispositivo.setTextColor(Color.parseColor(colorWidget))
             txtBateria.setTextColor(Color.parseColor(colorWidget))
             txtRelojWidget.setTextColor(Color.parseColor(colorWidget))
+
+            // Aplicar estilo dinámico al contenedor del buscador usando el color de fondo configurado
+            val contenedorBuscador = inputTerminal.parent as? LinearLayout
+            if (contenedorBuscador != null) {
+                val colorBase = Color.parseColor(colorTexto)
+                val colorFondoDeseado = Color.parseColor(colorFondo)
+                val colorBordeTenue = Color.argb(80, Color.red(colorBase), Color.green(colorBase), Color.blue(colorBase))
+
+                val drawableBuscador = GradientDrawable().apply {
+                    shape = GradientDrawable.RECTANGLE
+                    cornerRadius = 24f
+                    setColor(colorFondoDeseado)
+                    setStroke(2, colorBordeTenue)
+                }
+                contenedorBuscador.background = drawableBuscador
+            }
         } catch (e: Exception) {}
     }
 
@@ -189,12 +205,13 @@ class MainActivity : AppCompatActivity() {
 
         try {
             val colorBase = Color.parseColor(colorTexto)
+            val colorFondoDeseado = Color.parseColor(colorFondo)
             val colorBordeTenue = Color.argb(80, Color.red(colorBase), Color.green(colorBase), Color.blue(colorBase))
 
             val drawable = GradientDrawable().apply {
                 shape = GradientDrawable.RECTANGLE
                 cornerRadius = 24f
-                setColor(Color.parseColor("#0F0F0F"))
+                setColor(colorFondoDeseado)
                 setStroke(2, colorBordeTenue)
             }
             tv.background = drawable

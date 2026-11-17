@@ -3,6 +3,7 @@ package com.ilmer.shellscreen
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -18,6 +19,7 @@ import androidx.core.os.LocaleListCompat
 
 class ConfigActivity : AppCompatActivity() {
 
+    private lateinit var rootLayoutConfig: LinearLayout
     private lateinit var inputColorFondo: EditText
     private lateinit var inputColorTexto: EditText
     private lateinit var inputColorWidget: EditText
@@ -49,6 +51,13 @@ class ConfigActivity : AppCompatActivity() {
     private val checksFavoritas = mutableListOf<CheckBox>()
     private val checksPantalla = mutableListOf<CheckBox>()
 
+    // Elementos de la UI que se adaptarán dinámicamente
+    private lateinit var headersAcordeon: List<TextView>
+    private lateinit var contentsAcordeon: List<LinearLayout>
+    private lateinit var editsCampos: List<EditText>
+    private lateinit var btnSeleccionarLauncher: TextView
+    private lateinit var btnGuardar: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN)
@@ -59,14 +68,15 @@ class ConfigActivity : AppCompatActivity() {
         configurarPaletaRapida()
 
         cargarListaDeAplicacionesInstaladas()
-        cargarDatosGuardados()
+        cargarConfiguracionesUI() // Carga y aplica colores iniciales
 
         findViewById<TextView>(R.id.btnRegresarTop).setOnClickListener { finish() }
-        findViewById<TextView>(R.id.btnSeleccionarLauncher).setOnClickListener { startActivity(Intent(Settings.ACTION_HOME_SETTINGS)) }
-        findViewById<TextView>(R.id.btnGuardar).setOnClickListener { guardarConfiguracion() }
+        btnSeleccionarLauncher.setOnClickListener { startActivity(Intent(Settings.ACTION_HOME_SETTINGS)) }
+        btnGuardar.setOnClickListener { guardarConfiguracion() }
     }
 
     private fun vincularVistas() {
+        rootLayoutConfig = findViewById(R.id.rootLayoutConfig)
         inputColorFondo = findViewById(R.id.inputColorFondo)
         inputColorTexto = findViewById(R.id.inputColorTexto)
         inputColorWidget = findViewById(R.id.inputColorWidget)
@@ -82,7 +92,6 @@ class ConfigActivity : AppCompatActivity() {
         inputNombreDuenio = findViewById(R.id.inputNombreDuenio)
         checkMantenerDespierto = findViewById(R.id.checkMantenerDespierto)
 
-        // Vincular RadioButtons de Idioma
         radioIdiomaSistema = findViewById(R.id.radioIdiomaSistema)
         radioIdiomaEs = findViewById(R.id.radioIdiomaEs)
         radioIdiomaEn = findViewById(R.id.radioIdiomaEn)
@@ -93,19 +102,35 @@ class ConfigActivity : AppCompatActivity() {
         checkBuscarEnTodas = findViewById(R.id.checkBuscarEnTodas)
         contenedorFavoritas = findViewById(R.id.contenedorFavoritas)
         contenedorAppsPantalla = findViewById(R.id.contenedorAppsPantalla)
+
+        btnSeleccionarLauncher = findViewById(R.id.btnSeleccionarLauncher)
+        btnGuardar = findViewById(R.id.btnGuardar)
+
+        headersAcordeon = listOf(
+            findViewById(R.id.headerColores),
+            findViewById(R.id.headerFavoritas),
+            findViewById(R.id.headerVisibles),
+            findViewById(R.id.headerFuentes),
+            findViewById(R.id.headerBloqueo),
+            findViewById(R.id.headerIdioma)
+        )
+
+        contentsAcordeon = listOf(
+            findViewById(R.id.contentColores),
+            findViewById(R.id.contentFavoritas),
+            findViewById(R.id.contentVisibles),
+            findViewById(R.id.contentFuentes),
+            findViewById(R.id.contentBloqueo),
+            findViewById(R.id.contentIdioma)
+        )
+
+        editsCampos = listOf(inputColorFondo, inputColorTexto, inputColorWidget, inputTamanoFuente, inputNombreDuenio)
     }
 
     private fun configurarAcordeones() {
-        val secciones = listOf(
-            Pair(findViewById<TextView>(R.id.headerColores), findViewById<LinearLayout>(R.id.contentColores)),
-            Pair(findViewById<TextView>(R.id.headerFavoritas), findViewById<LinearLayout>(R.id.contentFavoritas)),
-            Pair(findViewById<TextView>(R.id.headerVisibles), findViewById<LinearLayout>(R.id.contentVisibles)),
-            Pair(findViewById<TextView>(R.id.headerFuentes), findViewById<LinearLayout>(R.id.contentFuentes)),
-            Pair(findViewById<TextView>(R.id.headerBloqueo), findViewById<LinearLayout>(R.id.contentBloqueo)),
-            Pair(findViewById<TextView>(R.id.headerIdioma), findViewById<LinearLayout>(R.id.contentIdioma))
-        )
-
-        for ((header, content) in secciones) {
+        for (i in headersAcordeon.indices) {
+            val header = headersAcordeon[i]
+            val content = contentsAcordeon[i]
             header.setOnClickListener {
                 content.visibility = if (content.visibility == View.GONE) View.VISIBLE else View.GONE
             }
@@ -113,15 +138,15 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     private fun configurarPaletaRapida() {
-        val asginarColor = { hex: String ->
+        val asignarColor = { hex: String ->
             inputColorTexto.setText(hex)
             inputColorWidget.setText(hex)
         }
-        findViewById<View>(R.id.cVerde).setOnClickListener { asginarColor("#00FF00") }
-        findViewById<View>(R.id.cAmarillo).setOnClickListener { asginarColor("#FFFF00") }
-        findViewById<View>(R.id.cAzul).setOnClickListener { asginarColor("#00FFFF") }
-        findViewById<View>(R.id.cRosa).setOnClickListener { asginarColor("#FF00FF") }
-        findViewById<View>(R.id.cBlanco).setOnClickListener { asginarColor("#FFFFFF") }
+        findViewById<View>(R.id.cVerde).setOnClickListener { asignarColor("#00FF00") }
+        findViewById<View>(R.id.cAmarillo).setOnClickListener { asignarColor("#FFFF00") }
+        findViewById<View>(R.id.cAzul).setOnClickListener { asignarColor("#00FFFF") }
+        findViewById<View>(R.id.cRosa).setOnClickListener { asignarColor("#FF00FF") }
+        findViewById<View>(R.id.cBlanco).setOnClickListener { asignarColor("#FFFFFF") }
     }
 
     private fun cargarListaDeAplicacionesInstaladas() {
@@ -133,11 +158,14 @@ class ConfigActivity : AppCompatActivity() {
         listaNombresApps.sortWith(String.CASE_INSENSITIVE_ORDER)
     }
 
-    private fun cargarDatosGuardados() {
+    private fun cargarConfiguracionesUI() {
         val prefs = getSharedPreferences("ShellScreenPrefs", Context.MODE_PRIVATE)
 
-        inputColorFondo.setText(prefs.getString("colorFondo", "#000000"))
-        inputColorTexto.setText(prefs.getString("colorTexto", "#00FF00"))
+        val cFondo = prefs.getString("colorFondo", "#000000") ?: "#000000"
+        val cTexto = prefs.getString("colorTexto", "#00FF00") ?: "#00FF00"
+
+        inputColorFondo.setText(cFondo)
+        inputColorTexto.setText(cTexto)
         inputColorWidget.setText(prefs.getString("colorWidget", "#FFFFFF"))
 
         val tamanoActual = prefs.getFloat("tamanoFuente", 14f)
@@ -158,7 +186,6 @@ class ConfigActivity : AppCompatActivity() {
         inputNombreDuenio.setText(prefs.getString("nombreDuenio", ""))
         checkMantenerDespierto.isChecked = prefs.getBoolean("mantenerDespierto", false)
 
-        // Cargar selección de idioma guardada
         when (prefs.getString("appIdioma", "sistema")) {
             "es" -> radioIdiomaEs.isChecked = true
             "en" -> radioIdiomaEn.isChecked = true
@@ -188,6 +215,44 @@ class ConfigActivity : AppCompatActivity() {
             contenedorAppsPantalla.addView(cbPantalla)
             checksPantalla.add(cbPantalla)
         }
+
+        aplicarColoresDinamicos(cFondo, cTexto)
+    }
+
+    private fun aplicarColoresDinamicos(hexFondo: String, hexTexto: String) {
+        try {
+            rootLayoutConfig.setBackgroundColor(Color.parseColor(hexFondo))
+            val colorBase = Color.parseColor(hexTexto)
+            val colorFondoDeseado = Color.parseColor(hexFondo)
+            val colorBordeTenue = Color.argb(80, Color.red(colorBase), Color.green(colorBase), Color.blue(colorBase))
+
+            val drawableComponente = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 24f
+                setColor(colorFondoDeseado)
+                setStroke(2, colorBordeTenue)
+            }
+
+            // Aplicar a los headers y contenidos de acordeones
+            for (header in headersAcordeon) {
+                header.background = drawableComponente.constantState?.newDrawable() as GradientDrawable
+                header.setTextColor(colorBase)
+            }
+            for (content in contentsAcordeon) {
+                content.background = drawableComponente.constantState?.newDrawable() as GradientDrawable
+            }
+            // Aplicar a los campos de texto EditText
+            for (edit in editsCampos) {
+                edit.background = drawableComponente.constantState?.newDrawable() as GradientDrawable
+                edit.setTextColor(colorBase)
+            }
+            // Aplicar a botones especiales
+            btnSeleccionarLauncher.background = drawableComponente.constantState?.newDrawable() as GradientDrawable
+            btnSeleccionarLauncher.setTextColor(colorBase)
+
+            btnGuardar.background = drawableComponente.constantState?.newDrawable() as GradientDrawable
+            btnGuardar.setTextColor(colorBase)
+        } catch (e: Exception) {}
     }
 
     private fun guardarConfiguracion() {
@@ -220,7 +285,6 @@ class ConfigActivity : AppCompatActivity() {
         prefs.putString("nombreDuenio", inputNombreDuenio.text.toString())
         prefs.putBoolean("mantenerDespierto", checkMantenerDespierto.isChecked)
 
-        // Guardar y aplicar el idioma seleccionado
         val codigoIdioma = when {
             radioIdiomaEs.isChecked -> "es"
             radioIdiomaEn.isChecked -> "en"

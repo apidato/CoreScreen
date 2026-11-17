@@ -25,7 +25,6 @@
             android:layout_weight="1"
             android:text="@string/cfg_titulo"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
             android:gravity="start"
             android:clickable="true"
             android:focusable="true" />
